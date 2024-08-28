@@ -51,6 +51,8 @@ runs:
       with:
         github-token: ${{ github.token }}
         images: ghcr.io/${{ steps.string.outputs.lowercase }}
+        flavor: |
+          prefix=${{ inputs.DOCKER_META_PREFIX }}
         tags: |
           # set latest tag for default branch
           type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
@@ -63,7 +65,6 @@ runs:
           type=semver,pattern=v{{major}}
           type=sha
           type=sha,format=long
-          prefix=${{ inputs.DOCKER_META_PREFIX }}
 
     - name: Build and push
       uses: docker/build-push-action@v5
