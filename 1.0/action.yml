@@ -63,7 +63,7 @@ runs:
           type=semver,pattern=v{{major}}
           type=sha
           type=sha,format=long
-          prefix={{ inputs.DOCKER_META_PREFIX }}
+          prefix=${{ inputs.DOCKER_META_PREFIX }}
 
     - name: Build and push
       uses: docker/build-push-action@v5
