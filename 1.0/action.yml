@@ -43,13 +43,13 @@ runs:
       with:
         registry: ghcr.io
         username: ${{ github.repository_owner }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ github.token }}
 
     - name: Docker meta
       id: meta
       uses: docker/metadata-action@v4
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ github.token }}
         images: ghcr.io/${{ steps.string.outputs.lowercase }}
         tags: |
           # set latest tag for default branch
@@ -75,7 +75,7 @@ runs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         no-cache: false
-        build-args: GITHUB_ACCESS_TOKEN=${{ secrets.GITHUB_TOKEN }}
+        build-args: GITHUB_ACCESS_TOKEN=${{ github.token }}
 
     - name: Deploy container to Jelastic
       run: |
